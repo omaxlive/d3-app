@@ -60,7 +60,7 @@ function BarChart({ data, id }) {
       };
 
       const mouseleave = (event, d) => {
-        // tooltip.style('opacity', 0);
+        tooltip.style('opacity', 0);
       };
 
       const mousemove = (event, d) => {
@@ -108,6 +108,7 @@ function BarChart({ data, id }) {
         <text
           className='tooltip-area__text'
           data-testid={`tooltip-area__text-${id}`}
+          style={{ 'pointer-events': 'none' }}
         ></text>
       </g>
     </svg>
