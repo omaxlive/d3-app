@@ -24,10 +24,12 @@ function App() {
       >
         Add item
       </button>
-      <div className='chart-container'>
-        <BarChart data={data} />
-        <BarChart data={data} />
-      </div>
+      {!loading && (
+        <div className='chart-container'>
+          <BarChart id='chart1' data={data} />
+          <BarChart id='chart2' data={data} />
+        </div>
+      )}
     </div>
   );
 }

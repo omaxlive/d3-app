@@ -4,7 +4,7 @@ import * as d3 from 'd3';
 
 const height = 500;
 const width = 500;
-function BarChart({ data }) {
+function BarChart({ data, id }) {
   const ref = useD3(
     (svg) => {
       const margin = { top: 20, right: 30, bottom: 30, left: 40 };
@@ -51,7 +51,9 @@ function BarChart({ data }) {
       svg.select('.x-axis').call(xAxis);
       svg.select('.y-axis').call(y1Axis);
 
-      var tooltip = d3.select('.tooltip-area').style('opacity', 0);
+      var tooltip = d3
+        .select(`g[data-testid=tooltip-area-${id}]`)
+        .style('opacity', 0);
 
       const mouseover = (event, d) => {
         tooltip.style('opacity', 1);
@@ -62,7 +64,9 @@ function BarChart({ data }) {
       };
 
       const mousemove = (event, d) => {
-        const text = d3.select('.tooltip-area__text');
+        const text = d3.select(
+          `g[data-testid=tooltip-area-${id}] > .tooltip-area__text`
+        );
         text.text(`Sales were ${d.sales} in ${d.year}`);
         const [x, y] = d3.pointer(event);
 
@@ -100,8 +104,11 @@ function BarChart({ data }) {
       <g className='plot-area' />
       <g className='x-axis' />
       <g className='y-axis' />
-      <g className='tooltip-area'>
-        <text className='tooltip-area__text'></text>
+      <g className='tooltip-area' data-testid={`tooltip-area-${id}`}>
+        <text
+          className='tooltip-area__text'
+          data-testid={`tooltip-area__text-${id}`}
+        ></text>
       </g>
     </svg>
   );
