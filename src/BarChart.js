@@ -1,6 +1,7 @@
 import { useD3 } from './hooks/useD3';
 import React from 'react';
 import * as d3 from 'd3';
+import './BarChart.css';
 
 const height = 500;
 const width = 500;
@@ -82,11 +83,12 @@ function BarChart({ data, id }) {
         .attr('class', 'bar')
         .attr('x', (d) => x(d.year))
         .attr('width', x.bandwidth())
-        .attr('y', (d) => y1(d.sales))
-        .attr('height', (d) => y1(0) - y1(d.sales))
+        .attr('y', (d) => y1(0))
+        .attr('height', 0)
         .on('mousemove', mousemove)
         .on('mouseleave', mouseleave)
-        .on('mouseover', mouseover);
+        .on('mouseover', mouseover)
+        .transition().duration(750).attr('y', (d) => y1(d.sales)).attr('height', (d) => y1(0) - y1(d.sales));
     },
     [data.length]
   );
@@ -108,7 +110,6 @@ function BarChart({ data, id }) {
         <text
           className='tooltip-area__text'
           data-testid={`tooltip-area__text-${id}`}
-          style={{ 'pointer-events': 'none' }}
         ></text>
       </g>
     </svg>
