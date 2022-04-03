@@ -1,12 +1,23 @@
 import './App.css';
 import BarChart from './BarChart';
-import { data } from './data';
+import { data as dataExample } from './data';
+import { useState } from 'react';
 function App() {
+  const [data, setData] = useState(dataExample);
+
   return (
     <div className='App'>
-      <header className='App-header'>
+      <button
+        onClick={() =>
+          setData([...data, { year: 2011, sales: 1, efficiency: 100 }])
+        }
+      >
+        Add item
+      </button>
+      <div className='chart-container'>
         <BarChart data={data} />
-      </header>
+        <BarChart data={data} />
+      </div>
     </div>
   );
 }

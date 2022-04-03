@@ -2,11 +2,11 @@ import { useD3 } from './hooks/useD3';
 import React from 'react';
 import * as d3 from 'd3';
 
+const height = 500;
+const width = 500;
 function BarChart({ data }) {
   const ref = useD3(
     (svg) => {
-      const height = 500;
-      const width = 500;
       const margin = { top: 20, right: 30, bottom: 30, left: 40 };
 
       const x = d3
@@ -61,7 +61,9 @@ function BarChart({ data }) {
         .attr('x', (d) => x(d.year))
         .attr('width', x.bandwidth())
         .attr('y', (d) => y1(d.sales))
-        .attr('height', (d) => y1(0) - y1(d.sales));
+        .attr('height', (d) => y1(0) - y1(d.sales))
+        .append('title')
+        .text((d) => `Sales were ${d.sales} in ${d.year}`);
     },
     [data.length]
   );
@@ -69,9 +71,9 @@ function BarChart({ data }) {
   return (
     <svg
       ref={ref}
+      viewBox={`0 0 ${height} ${width}`}
       style={{
-        height: 500,
-        width: '100%',
+        height: '100%',
         marginRight: '0px',
         marginLeft: '0px',
       }}
