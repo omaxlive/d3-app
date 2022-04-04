@@ -1,5 +1,5 @@
 import './App.css';
-import BarChart from './BarChart';
+import BarChart from './components/BarChart';
 import { useState, useEffect } from 'react';
 import * as d3 from 'd3';
 import { REMOTE_DATA_URL } from './constants';
